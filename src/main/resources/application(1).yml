@@ -1,0 +1,37 @@
+spring:
+    datasource:
+        name: test
+        url: jdbc:mysql://120.24.160.140:3306/fl
+        username: root
+        password: hell0%a
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    http:
+        # 文件上传单次最大值： 50 MB
+        multipart.max-file-size: 50MB
+        multipart.max-request-size: 50MB
+mybatis:
+    mapperLocations: classpath:sqlmap/*.xml
+    typeAliasesPackage: com.pairzone.po
+sendgrid:
+    apiKey: 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
+    mailboxAuthenticationTemplateId: 662298cf-fed0-442a-b95e-fc23dcb9002a
+    retrievePasswordTemplateId: 5d0b5cfc-366c-4fdc-a0c4-eeb5aa234df7
+    mailSenderName: Surport
+    mailSenderAddress: surport@fl.com
+file:
+    savePath: E:/data/user/doc/

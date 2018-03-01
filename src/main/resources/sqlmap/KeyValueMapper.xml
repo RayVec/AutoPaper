@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bd17kaka.autopaper.dao.KeyValueMapper" >
+  <resultMap id="BaseResultMap" type="com.bd17kaka.autopaper.po.KeyValue" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="key1" property="key1" jdbcType="VARCHAR" />
+    <result column="value1" property="value1" jdbcType="VARCHAR" />
+    <result column="pre" property="pre" jdbcType="VARCHAR" />
+    <result column="gmt_created" property="gmtCreated" jdbcType="DATE" />
+    <result column="gmt_expired" property="gmtExpired" jdbcType="DATE" />
+    <result column="ttl" property="ttl" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, key1, value1, pre, gmt_created, gmt_expired, ttl
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bd17kaka.autopaper.po.example.KeyValueExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from key_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from key_value
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from key_value
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bd17kaka.autopaper.po.example.KeyValueExample" >
+    delete from key_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bd17kaka.autopaper.po.KeyValue" >
+    insert into key_value (id, key1, value1, 
+      pre, gmt_created, gmt_expired, 
+      ttl)
+    values (#{id,jdbcType=BIGINT}, #{key1,jdbcType=VARCHAR}, #{value1,jdbcType=VARCHAR}, 
+      #{pre,jdbcType=VARCHAR}, #{gmtCreated,jdbcType=DATE}, #{gmtExpired,jdbcType=DATE}, 
+      #{ttl,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bd17kaka.autopaper.po.KeyValue" >
+    insert into key_value
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="key1 != null" >
+        key1,
+      </if>
+      <if test="value1 != null" >
+        value1,
+      </if>
+      <if test="pre != null" >
+        pre,
+      </if>
+      <if test="gmtCreated != null" >
+        gmt_created,
+      </if>
+      <if test="gmtExpired != null" >
+        gmt_expired,
+      </if>
+      <if test="ttl != null" >
+        ttl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="key1 != null" >
+        #{key1,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="pre != null" >
+        #{pre,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null" >
+        #{gmtCreated,jdbcType=DATE},
+      </if>
+      <if test="gmtExpired != null" >
+        #{gmtExpired,jdbcType=DATE},
+      </if>
+      <if test="ttl != null" >
+        #{ttl,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bd17kaka.autopaper.po.example.KeyValueExample" resultType="java.lang.Integer" >
+    select count(*) from key_value
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update key_value
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.key1 != null" >
+        key1 = #{record.key1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value1 != null" >
+        value1 = #{record.value1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pre != null" >
+        pre = #{record.pre,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gmtCreated != null" >
+        gmt_created = #{record.gmtCreated,jdbcType=DATE},
+      </if>
+      <if test="record.gmtExpired != null" >
+        gmt_expired = #{record.gmtExpired,jdbcType=DATE},
+      </if>
+      <if test="record.ttl != null" >
+        ttl = #{record.ttl,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update key_value
+    set id = #{record.id,jdbcType=BIGINT},
+      key1 = #{record.key1,jdbcType=VARCHAR},
+      value1 = #{record.value1,jdbcType=VARCHAR},
+      pre = #{record.pre,jdbcType=VARCHAR},
+      gmt_created = #{record.gmtCreated,jdbcType=DATE},
+      gmt_expired = #{record.gmtExpired,jdbcType=DATE},
+      ttl = #{record.ttl,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bd17kaka.autopaper.po.KeyValue" >
+    update key_value
+    <set >
+      <if test="key1 != null" >
+        key1 = #{key1,jdbcType=VARCHAR},
+      </if>
+      <if test="value1 != null" >
+        value1 = #{value1,jdbcType=VARCHAR},
+      </if>
+      <if test="pre != null" >
+        pre = #{pre,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreated != null" >
+        gmt_created = #{gmtCreated,jdbcType=DATE},
+      </if>
+      <if test="gmtExpired != null" >
+        gmt_expired = #{gmtExpired,jdbcType=DATE},
+      </if>
+      <if test="ttl != null" >
+        ttl = #{ttl,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bd17kaka.autopaper.po.KeyValue" >
+    update key_value
+    set key1 = #{key1,jdbcType=VARCHAR},
+      value1 = #{value1,jdbcType=VARCHAR},
+      pre = #{pre,jdbcType=VARCHAR},
+      gmt_created = #{gmtCreated,jdbcType=DATE},
+      gmt_expired = #{gmtExpired,jdbcType=DATE},
+      ttl = #{ttl,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
